@@ -1,0 +1,13 @@
+
+/*注意（重要）：此文件的内容一旦固定下来就不需要改，在线动态切换主题，调用setCustomTheme方法即可*/
+
+/*大多数情况只需切换主色，这里主色值尽量与 themePreprocessorPlugin 的 defaultPrimaryColor 相同， 使用setCustomTheme({primaryColor})切换*/
+@primary-color:#512da7;
+
+/*注意（强调）：以下非主色的值改动会影响 gradientReplacer 和 targetValueReplacer 的可用属性的变化，所以内容一旦固定下来就不需要改（强调）*/
+
+/*非主色是不会跟主色梯度变化的，要切换它对应的梯度颜色，使用setCustomTheme({gradientReplacer:{"#F7D06B"}})切换 */ 
+@alert-success-bg-color:#F7D06B;
+
+/*圆角值，尽量与原值差异大一点，避免在切换时波及无辜（这就是targetValueReplacer的副作用），非颜色值的切换，可以使用 setCustomTheme({targetValueReplacer:{"6px"}}) 精准替换*/
+@border-radius-base:6px;
