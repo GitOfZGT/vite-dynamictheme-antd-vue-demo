@@ -17,6 +17,9 @@ export default defineConfig({
       ignored: ["!**/node_modules/**/setCustomTheme.js"],
     },
   },
+  build: {
+    outDir: "docs",
+  },
   css: {
     preprocessorOptions: {
       less: {
