@@ -10,6 +10,7 @@ import path from "path";
 // import legacy from "@vitejs/plugin-legacy";
 // https://vitejs.dev/config/
 export default defineConfig({
+  base:"/vite-dynamictheme-antd-vue-demo/",
   server: {
     port: 3300,
     watch: {
