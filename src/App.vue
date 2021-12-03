@@ -1,6 +1,9 @@
 <script setup lang="ts">
+/**
+ * "color" 和 "@setCustomTheme" 在ts中缺少模块声明，自行添加即可，如 ./taypes.d.ts
+ */
 import Color from "color";
-// "@setCustomTheme" 是 @zougt/vite-plugin-theme-preprocessor 提供的模块， setCustomTheme的参数必须提供Color模块 
+// "@setCustomTheme" 是 @zougt/vite-plugin-theme-preprocessor 提供的模块，setCustomTheme的参数必须提供Color模块
 import setCustomTheme from "@setCustomTheme";
 
 // console.log(setCustomTheme)
@@ -16,18 +19,22 @@ import "vue3-colorpicker/style.css";
 
 const defaultPrimaryColor = "#CB38CE";
 const defaultRadius = 4;
-// 对应less变量 @alert-success-bg-color 的值
+// 对应less变量 @alert-success-bg-color 的值，让它单独切换，不跟随主题色
 const alertSuccessBgReplacerKey = "#F7D06B";
 interface ThemeOpt {
   primaryColor: string;
   targetValueReplacer: object;
-  [alertSuccessBgReplacerKey]: string;
+  gradientReplacer: {
+    [alertSuccessBgReplacerKey]: string;
+  };
 }
 // 从浏览器获取存储的 setCustomTheme 的参数
 const defaultThemeOpt: ThemeOpt = JSON.parse(
   localStorage.getItem("storage-theme-color") ||
     `{ "primaryColor":"${defaultPrimaryColor}" }`
 );
+
+// 分析 targetValueReplacer 得到一组值是可以通过 "6px" 替换的
 const targetValueReplacer = {
   "6px 6px 0 0": "6px 6px 0 0",
   "6px": "6px",
@@ -58,15 +65,24 @@ const primaryColor = ref(defaultThemeOpt.primaryColor);
 const radius = ref(defaultRadius);
 // 颜色板--切换一个非主题色
 const oneOtherColor = ref(
-  defaultThemeOpt[alertSuccessBgReplacerKey] || alertSuccessBgReplacerKey
+  (defaultThemeOpt.gradientReplacer || {})[alertSuccessBgReplacerKey] ||
+    alertSuccessBgReplacerKey
 );
 
 const themeOptions = computed(() => {
+  /**
+   * @param {string} primaryColor
+   * // 可以终端命令 npx z-theme ins gradientReplacer 查看可用属性，targetValueReplacer同理
+   * @param {object} [gradientReplacer]
+   * @param {object} [targetValueReplacer]
+   */
   return {
+    // 主色切换
     primaryColor: primaryColor.value,
 
-    // gradientReplacer 和 targetValueReplacer 看实际需求来使用
+    // 在src/theme/theme-vars.less文件中有n种不同的颜色值， gradientReplacer 就有n个可用属性
     gradientReplacer: {
+      // 对应less变量 @alert-success-bg-color 的值，让它单独切换，不跟随主题色
       [alertSuccessBgReplacerKey]: oneOtherColor.value,
     },
     targetValueReplacer: Object.keys(targetValueReplacer).reduce((tol, key) => {
@@ -154,10 +170,20 @@ watch(themeOptions, (themeOptions) => {
     </a-row>
     <div class="my-plugins">
       <h4>webpack版本插件支持(未发布)</h4>
-      <a href="https://github.com/GitOfZGT/some-loader-utils" target="_blank">@zougt/some-loader-utils</a>
-      <a href="https://github.com/GitOfZGT/theme-css-extract-webpack-plugin" target="_blank">@zougt/theme-css-extract-webpack-plugin</a>
+      <a href="https://github.com/GitOfZGT/some-loader-utils" target="_blank"
+        >@zougt/some-loader-utils</a
+      >
+      <a
+        href="https://github.com/GitOfZGT/theme-css-extract-webpack-plugin"
+        target="_blank"
+        >@zougt/theme-css-extract-webpack-plugin</a
+      >
       <h4>vite版本插件支持(测试版v1.4.0-beta.2)</h4>
-      <a href="https://github.com/GitOfZGT/vite-plugin-theme-preprocessor" target="_blank">@zougt/vite-plugin-theme-preprocessor</a>
+      <a
+        href="https://github.com/GitOfZGT/vite-plugin-theme-preprocessor"
+        target="_blank"
+        >@zougt/vite-plugin-theme-preprocessor</a
+      >
     </div>
   </div>
 </template>
@@ -166,23 +192,24 @@ watch(themeOptions, (themeOptions) => {
 /** 注意：@import 默认的组件库变量文件，而不能是 src/theme/theme-vars.less */
 @import "ant-design-vue/lib/style/themes/index.less";
 .sub-title {
-  margin-top:  20px;
+  margin-top: 20px;
   text-align: center;
   // 用一个固定颜色 与  主题色 混合之后的颜色
   color: mix(#666666, @primary-color, 90%);
 }
 
-.my-plugins{
-  padding:10px 20px;
+.my-plugins {
+  padding: 10px 20px;
   position: fixed;
   z-index: 9;
-  top:0px;left:0px;
+  top: 0px;
+  left: 0px;
   background-color: white;
-  a{
+  a {
     display: block;
   }
-  h4{
-    margin-top:10px;
+  h4 {
+    margin-top: 10px;
   }
 }
 </style>

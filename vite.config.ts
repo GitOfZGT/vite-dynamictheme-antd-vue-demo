@@ -13,6 +13,7 @@ export default defineConfig({
   server: {
     port: 3300,
     watch: {
+      // themePreprocessorHmrPlugin 热更新时必需的，希望监听setCustomTheme.js
       ignored: ["!**/node_modules/**/setCustomTheme.js"],
     },
   },
@@ -37,12 +38,14 @@ export default defineConfig({
       less: {
         // 启用任意主题色模式
         arbitraryMode: true,
-        // 默认的主题色，与原主题色有差异的即可
+        // 默认的主题色，用于对其他颜色值形成对比值，通常与 src/theme/theme-vars.less 中的一个主题色相同，也可以不相同，就看是不是你想要的效果
         defaultPrimaryColor: "#512da7",
-        // 只需提供一个变量文件
+        // 只需提供一组变量文件
         multipleScopeVars: [
           {
+            // 必需
             scopeName: "theme-default",
+            // path 和 varsContent 必选一个
             path: path.resolve("src/theme/theme-vars.less"),
             // varsContent参数等效于 path文件的内容 ，可以让 defaultPrimaryColor 与 "@primary-color"值只写一遍， varsContent 与 path 选一个使用
             // varsContent:`@primary-color:${defaultPrimaryColor};`
