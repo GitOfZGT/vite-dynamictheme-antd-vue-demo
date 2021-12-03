@@ -4,4 +4,8 @@
 
 Using the plugin [@zougt/vite-plugin-theme-preprocessor](https://github.com/GitOfZGT/vite-plugin-theme-preprocessor).
 
+- Low use cost.
+- Use with any UI framework(Based on less or sass).
+- Not dependent on CSS vars.
+
 Welcome to issues.
