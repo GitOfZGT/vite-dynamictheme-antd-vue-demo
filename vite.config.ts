@@ -58,7 +58,7 @@ export default defineConfig({
         ],
       },
     }),
-    // 主题热更新
+    // 主题热更新，不得已分开插件，因为需要vite插件顺序enforce
     themePreprocessorHmrPlugin(),
   ],
 });
