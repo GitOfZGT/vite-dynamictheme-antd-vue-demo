@@ -23,16 +23,19 @@ const defaultRadius = 4;
 const alertSuccessBgReplacerKey = "#F7D06B";
 interface ThemeOpt {
   primaryColor: string;
-  targetValueReplacer: object;
-  gradientReplacer: {
+  targetValueReplacer?: object;
+  gradientReplacer?: {
     [alertSuccessBgReplacerKey]: string;
   };
 }
 // 从浏览器获取存储的 setCustomTheme 的参数
-const defaultThemeOpt: ThemeOpt = JSON.parse(
-  localStorage.getItem("storage-theme-color") ||
-    `{ "primaryColor":"${defaultPrimaryColor}" }`
-);
+const storageOpt = localStorage.getItem("storage-theme-color");
+let defaultThemeOpt: ThemeOpt = { primaryColor: defaultPrimaryColor };
+try {
+  if (storageOpt) {
+    defaultThemeOpt = JSON.parse(storageOpt);
+  }
+} catch (e) {}
 
 // 分析 targetValueReplacer 得到一组值是可以通过 "6px" 替换的
 const targetValueReplacer = {
@@ -169,6 +172,7 @@ watch(themeOptions, (themeOptions) => {
       /></a-col>
     </a-row>
     <div class="my-plugins">
+      使用成本低、适用于任何UI框架（基于less/sass）、不依赖Css3 vars、兼容IE9+（待验证）
       <h4>webpack版本插件支持(未发布)</h4>
       <a href="https://github.com/GitOfZGT/some-loader-utils" target="_blank"
         >@zougt/some-loader-utils</a
@@ -178,7 +182,7 @@ watch(themeOptions, (themeOptions) => {
         target="_blank"
         >@zougt/theme-css-extract-webpack-plugin</a
       >
-      <h4>vite版本插件支持(测试版v1.4.0-beta.2)</h4>
+      <h4>vite版本插件支持(测试版v1.4.0-beta.6)</h4>
       <a
         href="https://github.com/GitOfZGT/vite-plugin-theme-preprocessor"
         target="_blank"
@@ -192,6 +196,7 @@ watch(themeOptions, (themeOptions) => {
 /** 注意：@import 默认的组件库变量文件，而不能是 src/theme/theme-vars.less */
 @import "ant-design-vue/lib/style/themes/index.less";
 .sub-title {
+  margin-bottom: 80px;
   margin-top: 20px;
   text-align: center;
   // 用一个固定颜色 与  主题色 混合之后的颜色
@@ -199,12 +204,13 @@ watch(themeOptions, (themeOptions) => {
 }
 
 .my-plugins {
+  max-width: 450px;
   padding: 10px 20px;
   position: fixed;
   z-index: 9;
   top: 0px;
   left: 0px;
-  background-color: white;
+  background-color:  @body-background;;
   a {
     display: block;
   }
