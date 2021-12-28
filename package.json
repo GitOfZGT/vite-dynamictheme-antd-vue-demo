@@ -21,7 +21,7 @@
     "@types/tinycolor2": "^1.4.3",
     "@vitejs/plugin-legacy": "^1.6.3",
     "@vitejs/plugin-vue": "^1.9.3",
-    "@zougt/some-loader-utils": "^1.4.0-beta.5",
+    "@zougt/some-loader-utils": "^1.4.0",
     "@zougt/vite-plugin-theme-preprocessor": "^1.4.0",
     "less": "^4.1.2",
     "regenerator-runtime": "^0.13.9",

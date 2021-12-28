@@ -10,7 +10,7 @@ import path from "path";
 // import legacy from "@vitejs/plugin-legacy";
 // https://vitejs.dev/config/
 export default defineConfig({
-  base:"/vite-dynamictheme-antd-vue-demo/",
+  base: "/vite-dynamictheme-antd-vue-demo/",
   server: {
     port: 3300,
     watch: {
@@ -59,8 +59,15 @@ export default defineConfig({
         includeStyleWithColors: [
           {
             color: "#ffffff",
-            // 此类颜色的是否跟随主题色梯度变化，默认false
-            // inGradient: true,
+            // 排除属性
+            // excludeCssProps:["background","background-color"]
+            // 排除选择器
+            // excludeSelectors: [
+            //   ".ant-btn-link:hover, .ant-btn-link:focus, .ant-btn-link:active",
+            // ],
+          },
+          {
+            color: ["transparent","none"],
           },
         ],
       },

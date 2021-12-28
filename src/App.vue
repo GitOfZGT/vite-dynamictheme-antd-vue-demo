@@ -172,8 +172,8 @@ watch(themeOptions, (themeOptions) => {
       /></a-col>
     </a-row>
     <div class="my-plugins">
-      使用成本低、适用于任何UI框架（基于less/sass）、不依赖Css3 vars、兼容IE9+（待验证）
-      <h4>webpack版本插件支持(未发布)</h4>
+      使用成本低、适用于任何UI框架（基于less/sass）、不依赖Css3 vars、兼容IE9+?
+      <h4>webpack版本插件支持</h4>
       <a href="https://github.com/GitOfZGT/some-loader-utils" target="_blank"
         >@zougt/some-loader-utils</a
       >
@@ -182,7 +182,7 @@ watch(themeOptions, (themeOptions) => {
         target="_blank"
         >@zougt/theme-css-extract-webpack-plugin</a
       >
-      <h4>vite版本插件支持(测试版v1.4.0-beta.6)</h4>
+      <h4>vite版本插件支持</h4>
       <a
         href="https://github.com/GitOfZGT/vite-plugin-theme-preprocessor"
         target="_blank"
@@ -200,7 +200,7 @@ watch(themeOptions, (themeOptions) => {
   margin-top: 20px;
   text-align: center;
   // 用一个固定颜色 与  主题色 混合之后的颜色
-  color: mix(#666666, @primary-color, 90%);
+  color: mix(#999999, @primary-color, 90%);
 }
 
 .my-plugins {
