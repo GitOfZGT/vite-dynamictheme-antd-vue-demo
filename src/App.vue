@@ -194,7 +194,7 @@ watch(themeOptions, (themeOptions) => {
 
 <style lang="less" scoped>
 /** 注意：@import 默认的组件库变量文件，而不能是 src/theme/theme-vars.less */
-@import "ant-design-vue/lib/style/themes/index.less";
+@import "ant-design-vue/lib/style/themes/default.less";
 .sub-title {
   margin-bottom: 80px;
   margin-top: 20px;
@@ -210,7 +210,7 @@ watch(themeOptions, (themeOptions) => {
   z-index: 9;
   top: 0px;
   left: 0px;
-  background-color:  @body-background;;
+  background-color: @body-background;
   a {
     display: block;
   }
